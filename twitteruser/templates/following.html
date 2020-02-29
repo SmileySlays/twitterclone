@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Following</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+	.bs-example{
+    	margin: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="bs-example">
+        <button onclick="window.location.href='/home/';"> Back </button>
+        <div class="card" style="width: 300px;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ twitteruser.username }}</h5>
+                    <ul class="border border-dark rounded">
+                    <p>{{ twitteruser.follows }}</p>
+                    </ul>
+                </div>
+            </div>
+</div>
+</div>
+</body>
