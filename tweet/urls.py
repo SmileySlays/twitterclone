@@ -21,4 +21,5 @@ from tweet.models import Tweet
 
 urlpatterns = [
     path('tweetadd/', views.tweet_add_view, name='tweetadd'),
-]
+    path('details/<pk>/', views.tweet_details, name="tweetdetails")
+    ]

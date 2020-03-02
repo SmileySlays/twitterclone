@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from tweet.models import Tweet
 from twitteruser.models import TwitterUser
 
-@login_required()
+
 def twitteruser(request, twitteruser):
     twitteruser = TwitterUser.objects.get(username=twitteruser)
     tweets = Tweet.objects.filter(twitteruser=twitteruser)

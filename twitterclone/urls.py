@@ -23,5 +23,6 @@ urlpatterns = [
     path('home/', views.home, name="home"),
     path('', include('tweet.urls')),
     path('', include('authentication.urls')),
-    path('', include('twitteruser.urls'))
+    path('', include('twitteruser.urls')),
+    path('', include('notification.urls'))
 ]

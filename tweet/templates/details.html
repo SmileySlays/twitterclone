@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Following</title>
+<title>Tweets</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
 	.bs-example{
@@ -16,14 +18,16 @@
 <body>
 <div class="container">
 <div class="bs-example">
-        <button onclick="window.location.href='/home/';"> Back </button>
         <div class="card" style="width: 300px;">
-                <div class="card-body text-center">
-                    <h5 class="card-title">{{ twitteruser.username }}</h5>
-                    <p>Follows: {{ twitteruser.follows.count }}</p>
+                    <button onclick="window.location.href='/home/';"> Back </button>
                 </div>
-            </div>
-                <p>Following: {{ twitteruser.follows }}</p>       
-</div>
+            <h4 class="mt-2">Tweet Details</h4>
+            <hr class="border border-danger mt-0 mb-4">
+            <ul class="border border-dark rounded">
+            <p><a href="/twitteruser/{{ tweet.twitteruser }}">{{ tweet.twitteruser }}</a></p>
+            <p>{{ tweet.text }}</p>
+            <p>{{ tweet.created_date }}</p>
+            </ul>
+        </div>
 </div>
 </body>

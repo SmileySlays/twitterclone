@@ -21,8 +21,13 @@
         <div class="card" style="width: 300px;">
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ request.user }}</h5>
+                    <p class="card-text">Notifications: {{ notifications.count }}</p>
                     <p class="card-text">Following: {{ request.user.follows.count }}</p>
-                    <button onclick="window.location.href='/follows/{{ request.user.username }}';"> View Follows </button>
+                    <p class="card-text">Tweets: {{ tweets.count }}</p>
+                    <button onclick="window.location.href='/twitteruser/{{ request.user.username }}';"> View Profile </button>
+                    <button onclick="window.location.href='/follows/{{ request.user.username }}';"> View Following </button>
+                    <button onclick="window.location.href='/notifications/';"> View Notifications </button>
+                    <button onclick="window.location.href='/tweetadd/';"> Add A Tweet </button>
                 </div>
             </div>
     <ul class="nav nav-tabs">
@@ -40,7 +45,7 @@
             {% for tweet in tweets %}
             <ul class="border border-dark rounded">
             <p><a href="/twitteruser/{{ tweet.twitteruser }}">{{ tweet.twitteruser }}</a></p>
-            <p>{{ tweet.text }}</p>
+            <p><a href="/details/{{ tweet.pk }}">{{ tweet.text }}</a></p>
             <p>{{ tweet.created_date }}</p>
             </ul>
             {% endfor %}
@@ -48,10 +53,10 @@
         <div class="tab-pane fade" id="newsfeed">
             <h4 class="mt-2">Newsfeed</h4>
             <hr class="border border-danger mt-0 mb-4">
-            {% for tweet in user_tweets%}
+            {% for tweet in user_tweets %}
             <ul class="border border-dark rounded">
             <p><a href="/twitteruser/{{ tweet.twitteruser }}">{{ tweet.twitteruser }}</a></p>
-            <p>{{ tweet.text }}</p>
+            <p><a href="/details/{{ tweet.pk }}">{{ tweet.text }}</a></p>
             <p>{{ tweet.created_date }}</p>
             </ul>
             {% endfor %}

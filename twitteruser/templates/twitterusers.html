@@ -16,12 +16,16 @@
 <body>
 <div class="container">
 <div class="bs-example">
+        <button onclick="window.location.href='/home/';"> Home </button>
         <div class="card" style="width: 300px;">
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ twitteruser.username }}</h5>
-                    <p class="card-text">Followers: {{ twitteruser.follows|length }}</p>
+                    <p class="card-text">Following: {{ twitteruser.follows.count }}</p>
+                    <p class="card-text">Tweets: {{ tweets.count }}</p>
+                    {% if twitteruser != request.user %}
                     <button onclick="window.location.href='/follow/{{ twitteruser.username }}';"> Follow </button>
                     <button onclick="window.location.href='/unfollow/{{ twitteruser.username }}';"> Unfollow </button>
+                    {% endif %}
                 </div>
             </div>
     <ul class="nav nav-tabs">
