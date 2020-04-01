@@ -29,7 +29,7 @@ def follow_remove_view(request, twitteruser):
 @login_required()
 def follow_view(request, twitteruser):
     twitteruser = TwitterUser.objects.get(username=twitteruser)
-    following = list(twitteruser.follows.all())
+    following = twitteruser.follows.all()
     return render(request, "following.html", 
                     {"twitteruser": twitteruser,
                      "following": following})

@@ -1,33 +1,36 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
-from django.contrib.auth import login, authenticate 
+from django.contrib.auth import login, authenticate, logout
+from django.views import View
 
 from authentication.forms import LoginForm, SignupForm
 from twitteruser.models import TwitterUser
 
-def signup_view(request):
-    html = "signup.html"
+class signup_view(View):
+    def get(self, request):
+        html = "signup.html"
+        form = SignupForm()
+        return render(request, html, {'form': form})
 
-    if request.method == "POST":
+    def post(self, request):
+        html = "signup.html"
         form = SignupForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             user = TwitterUser.objects.create_user(
-                data['username'],
-                data['password']
-            )
-            TwitterUser.objects.create(
+                username=data['username'],
+                password=data['password']
             )
             login(request, user)
             return HttpResponseRedirect("/home/")
 
-    else:
-        form = SignupForm()
-    return render(request, html, {'form': form})
+class login_view(View):
+    def get(self, request):
+        html = "login.html"
+        form = LoginForm()
+        return render(request, html, {'form': form})
 
-def login_view(request):
-    html = "login.html"
-
-    if request.method == "POST":
+    def post(self, request):
+        html = "login.html"
         form = LoginForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -37,6 +40,8 @@ def login_view(request):
                 login(request, user)
                 # Where we want to go next after logging in correctly
                 return HttpResponseRedirect("/home/")
-    else:
-        form = LoginForm()
-    return render(request, html, {'form': form})
+
+class logout_view(View):
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect("/")

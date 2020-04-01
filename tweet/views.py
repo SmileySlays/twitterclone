@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views import View
 
 from tweet.models import Tweet
 from tweet.forms import TweetAddForm
@@ -11,11 +13,15 @@ from notification.models import Notification
 def tweet_details(request, pk):
     return render(request, "details.html", {"tweet": Tweet.objects.get(pk=pk)})
 
-@login_required()
-def tweet_add_view(request):
-    html = "generic_form.html"
+@method_decorator(login_required, name='dispatch')
+class tweet_add_view(View):
+    def get(self, request):
+        html = "generic_form.html"
+        form = TweetAddForm()
+        return render(request, html, {'form': form})
 
-    if request.method == "POST":
+    def post(self, request):
+        html = "generic_form.html"
         form = TweetAddForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -30,13 +36,13 @@ def tweet_add_view(request):
                             recipient = usr,
                             message = request.user.username + " tagged you in a tweet!"
                         )
+                Tweet.objects.create(
+                        text=data['text'],
+                        twitteruser=request.user
+                        )
             else:
                 Tweet.objects.create(
                     text=data['text'],
                     twitteruser=request.user
                 )
             return HttpResponseRedirect(reverse("home"))
-
-    form = TweetAddForm()
-
-    return render(request, html, {'form': form})
